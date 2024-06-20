@@ -9,8 +9,20 @@ import 'package:birdie_app/screens/splash.dart';
 import 'package:birdie_app/screens/monitor.dart';
 import 'package:birdie_app/screens/userpolices.dart';
 import 'package:flutter/material.dart';
+// import 'package:birdie_flutter_project/firebase_options.dart';
+import 'package:birdie_app/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-void main(){
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(Birdie());
 }
 
@@ -43,3 +55,11 @@ class _BirdieState extends State<Birdie> {
     );
    }
 }
+
+
+
+
+
+
+
+
