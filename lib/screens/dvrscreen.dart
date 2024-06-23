@@ -1,4 +1,4 @@
-import 'package:birdie_app/maps.dart';
+import 'package:birdie_app/widgets/maps.dart';
 import 'package:flutter/material.dart';
 
 class DvrScreen extends StatefulWidget {

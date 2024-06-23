@@ -1,4 +1,4 @@
-import 'package:birdie_app/maps.dart';
+import 'package:birdie_app/widgets/maps.dart';
 import 'package:flutter/material.dart';
 
 class MonitorPage extends StatefulWidget {
@@ -12,7 +12,10 @@ class _MonitorPageState extends State<MonitorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Maps(),
+      body: Container(
+        height: 550,
+        width: 500,
+        child: Maps()),
     );
   }
 }

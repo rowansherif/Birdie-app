@@ -2,7 +2,7 @@ import 'package:birdie_app/screens/aboutuspage.dart';
 import 'package:birdie_app/screens/createaccount.dart';
 import 'package:birdie_app/screens/dvrscreen.dart';
 import 'package:birdie_app/screens/forgetpassword.dart';
-import 'package:birdie_app/screens/home.dart';
+import 'package:birdie_app/widgets/home.dart';
 import 'package:birdie_app/screens/login.dart';
 import 'package:birdie_app/screens/profilepage.dart';
 import 'package:birdie_app/screens/splash.dart';
