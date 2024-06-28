@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:birdie_app/widgets/maps.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
