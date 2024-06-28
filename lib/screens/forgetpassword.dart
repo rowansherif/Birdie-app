@@ -9,7 +9,12 @@ class ForgetPasswordpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        toolbarHeight: 70,
+        backgroundColor: Colors.blue,
+        title: Text('Forget Password', style: TextStyle(fontSize: 25, color: Colors.white),),
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
       body: SizedBox(
         width: double.infinity,
         child: Container(

@@ -51,5 +51,8 @@
     <string>We need your location to provide geofencing services.</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>We need your location to provide geofencing services.</string>
+    <string>We need your location to show your current position on the map.</string>
+    <string>We need your location to show your current position on the map.</string>
+
 </dict>
 </plist>

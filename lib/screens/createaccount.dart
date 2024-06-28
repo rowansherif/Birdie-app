@@ -31,7 +31,12 @@ class _CreateAccountState extends State<CreateAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        toolbarHeight: 70,
+        backgroundColor: Colors.blue,
+        title: Text('Create account', style: TextStyle(fontSize: 25, color: Colors.white),),
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
       body: SingleChildScrollView(
         child: SizedBox(
           width: double.infinity,

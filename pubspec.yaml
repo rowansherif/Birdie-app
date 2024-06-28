@@ -43,6 +43,7 @@ dependencies:
   screenshot: ^3.0.0
   easy_geofencing: ^0.2.0
   geolocator: ^7.7.0
+  geocoding: ^2.0.0
   flutter_bloc: ^8.0.0
 
   # The following adds the Cupertino Icons font to your application.
