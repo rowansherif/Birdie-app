@@ -57,11 +57,12 @@ class _FeedbackPageState extends State<FeedbackPage> {
                         fontSize: 27,
                        ),),
                       SizedBox(height: 20),
-                       Container(
-                        padding: EdgeInsets.only(right: 319),
-                        height: 70,
-                        width: 320,
+                      
+                      Container(
+                        height: 80,
+                        width: 400,
                         child: EmojiRatingBar()),
+
                         SizedBox(height: 20),
                       Container(
                         height: 100,
@@ -95,6 +96,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 ),
         ),
       ),
+      
     );
   }
 }

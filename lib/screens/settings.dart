@@ -1,7 +1,9 @@
-import 'package:birdie_app/screens/aboutuspage.dart';
+import 'package:flutter/material.dart';
 import 'package:birdie_app/screens/feedbackpage.dart';
 import 'package:birdie_app/screens/userpolices.dart';
-import 'package:flutter/material.dart';
+import 'package:birdie_app/screens/aboutuspage.dart';
+
+
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
