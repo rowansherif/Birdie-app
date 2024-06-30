@@ -1,7 +1,8 @@
 import 'package:birdie_app/screens/devicemanagement.dart';
 import 'package:birdie_app/screens/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:birdie_app/main.dart';
+import 'package:birdie_app/screens/login.dart';
 
 
 class ProfilePage extends StatelessWidget {
@@ -101,9 +102,10 @@ class ProfilePage extends StatelessWidget {
                       ),
                       SizedBox(height: 30,),
 
-                        ElevatedButton(onPressed:() {
-                             Navigator.popAndPushNamed(context, '/login');
-                                    }, 
+                        ElevatedButton(
+                          onPressed: () {
+                              Navigator.popAndPushNamed(context, '/login');
+                                 },
                              child: Text("Log Out",
                              style: TextStyle(fontSize: 15,color: Colors.black),
                                     ),
