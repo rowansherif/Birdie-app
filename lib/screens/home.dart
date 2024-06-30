@@ -1,6 +1,7 @@
 import 'package:birdie_app/screens/dvrscreen.dart';
 import 'package:birdie_app/screens/monitor.dart';
 import 'package:birdie_app/screens/profilepage.dart';
+import 'package:birdie_app/screens/files.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -18,7 +19,7 @@ class _HomeState extends State<Home> {
     Center(child: Text('car life')),
     Center(child: DvrScreen() ),
     Center(child: MonitorPage()),
-    Center(child: Text('Files')),
+    Center(child: Files()),
     Center(child: ProfilePage(),),
 
   ];

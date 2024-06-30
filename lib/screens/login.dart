@@ -1,9 +1,11 @@
+
 import 'package:birdie_app/my_code/auth_code.dart';
 import 'package:birdie_app/screens/forgetpassword.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:birdie_app/my_code/auth_code.dart';
+
 final _formkey = GlobalKey<FormState>();
-final usernameController = TextEditingController();
+final emailController = TextEditingController();
 final passwordController = TextEditingController();
 bool passToggle = true;
 
@@ -16,6 +18,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final Authcode _authCode = Authcode();
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,15 +44,16 @@ class _LoginState extends State<Login> {
                       height: 30,
                     ),
                     TextFormField(
-                      controller: usernameController,
+                      keyboardType: TextInputType.emailAddress,
+                      controller: emailController,
                       decoration: InputDecoration(
                         contentPadding:
                             const EdgeInsets.symmetric(vertical: 15),
                         label: Text(
-                          "User name",
+                          "User Email",
                           style: TextStyle(color: Colors.blue[400]),
                         ),
-                        hintText: "Enter User name",
+                        hintText: "Enter User Email",
                         hintStyle: TextStyle(color: Colors.black26),
                         prefixIcon: Icon(Icons.person, color: Colors.blue[400]),
                         border: OutlineInputBorder(
@@ -62,11 +67,10 @@ class _LoginState extends State<Login> {
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return "Please, Enter User name";
-                        } else if (!RegExp(r'^[a-z A-z]+$').hasMatch(value!)) {
-                          return "Enter Correct User name";
-                        } else if (value!.length < 3) {
-                          return "The User name Should be at least 3 letters";
+                          return "Please, Enter E-mail";
+                        } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{3}$')
+                            .hasMatch(value!)) {
+                          return "Enter Valid E-mail";
                         }
                         return null;
                       },
@@ -127,12 +131,24 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (_formkey.currentState!.validate()) {
-                              print("sucess");
-                              usernameController.clear();
-                              passwordController.clear();
-                              Navigator.popAndPushNamed(context, '/home');
+                              try {
+                                final user =
+                                    await _auth.signInWithEmailAndPassword(
+                                        email: emailController.text,
+                                        password: passwordController.text);
+                                if (user != null) {
+                                  print("sucess");
+                                  emailController.clear();
+                                  passwordController.clear();
+                                  Navigator.popAndPushNamed(context, '/home');
+                                }
+                              } on FirebaseAuthException catch (e) {
+                                 ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(e.code)),
+                                );
+                              }
                             }
                           },
                           child: Text(
