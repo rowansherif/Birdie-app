@@ -42,4 +42,6 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
     await Future.delayed(Duration(milliseconds: 500)); // Simulate loading delay
     emit(ProfilePageState());
   }
+
+  
 }

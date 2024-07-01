@@ -56,7 +56,7 @@ class _BirdieState extends State<Birdie> {
       '/createaccount': (context) => const CreateAccount(),
       '/forgetpassword': (context) => const ForgetPasswordpage(),
       '/home': (context) => const Home(),
-      '/profilepage': (context) => const ProfilePage(),
+      '/profilepage': (context) => ProfilePage(),
       '/monitorpage': (context) =>  MonitorPage(),
       '/dvrpage': (context) => const DvrScreen(),
       '/aboutuspage': (context) => const AboutUsPage(),
