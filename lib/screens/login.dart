@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:birdie_app/my_code/auth_code.dart';
 import 'package:birdie_app/screens/forgetpassword.dart';
+import 'package:birdie_app/screens/forgetpassword.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
-final _formKey = GlobalKey<FormState>();
-final usernameController = TextEditingController();
-final passwordController = TextEditingController();
-bool passToggle = true;
+
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -16,6 +16,11 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final Authcode _authCode = Authcode();
+  final _auth = FirebaseAuth.instance;
+  final _formkey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+bool passToggle = true;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,7 @@ class _LoginState extends State<Login> {
           child: SizedBox(
             width: double.infinity,
             child: Form(
-              key: _formKey,
+              key: _formkey,
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
@@ -39,11 +44,18 @@ class _LoginState extends State<Login> {
                     ),
                     SizedBox(height: 30),
                     TextFormField(
-                      controller: usernameController,
+                      keyboardType: TextInputType.emailAddress,
+                      controller: emailController,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(vertical: 15),
                         label: Text("User name", style: TextStyle(color: Colors.blue[400])),
                         hintText: "Enter User name",
+                             EdgeInsets.symmetric(vertical: 15),
+                        label: Text(
+                          "User Email",
+                          style: TextStyle(color: Colors.blue[400]),
+                        ),
+                        hintText: "Enter User Email",
                         hintStyle: TextStyle(color: Colors.black26),
                         prefixIcon: Icon(Icons.person, color: Colors.blue[400]),
                         border: OutlineInputBorder(
@@ -60,6 +72,10 @@ class _LoginState extends State<Login> {
                           return "Enter Correct User name";
                         } else if (value.length < 3) {
                           return "The User name Should be at least 3 letters";
+                          return "Please, Enter E-mail";
+                        } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{3}$')
+                            .hasMatch(value!)) {
+                          return "Enter Valid E-mail";
                         }
                         return null;
                       },
@@ -110,6 +126,25 @@ class _LoginState extends State<Login> {
                               usernameController.clear();
                               passwordController.clear();
                               Navigator.pushNamed(context, '/home');
+
+                          onPressed: () async {
+                            if (_formkey.currentState!.validate()) {
+                              try {
+                                final user =
+                                    await _auth.signInWithEmailAndPassword(
+                                        email: emailController.text,
+                                        password: passwordController.text);
+                                if (user != null) {
+                                  print("sucess");
+                                  emailController.clear();
+                                  passwordController.clear();
+                                  Navigator.popAndPushNamed(context, '/home');
+                                }
+                              } on FirebaseAuthException catch (e) {
+                                 ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(e.code)),
+                                );
+                              }
                             }
                           },
                           child: Text("Login", style: TextStyle(fontSize: 15, color: Colors.white)),

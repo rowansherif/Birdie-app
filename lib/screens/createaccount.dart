@@ -1,5 +1,3 @@
-
-
 import 'package:birdie_app/my_code/auth_code.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +5,8 @@ import 'package:flutter/material.dart';
 final _formkey = GlobalKey<FormState>();
 
 final usernameController = TextEditingController();
-final emailController = TextEditingController();
-final passwordController = TextEditingController();
+late TextEditingController emailController = TextEditingController();
+late TextEditingController passwordController = TextEditingController();
 final confirmpasswordController = TextEditingController();
 
 bool passToggle = true;
@@ -23,11 +21,12 @@ class CreateAccount extends StatefulWidget {
 
 class _CreateAccountState extends State<CreateAccount> {
   final Authcode _authCode = Authcode();
-
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  late String email;
+  late String password;
+  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,6 +92,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     height: 20,
                   ),
                   TextFormField(
+                    keyboardType: TextInputType.emailAddress,
                     controller: emailController,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(vertical: 15),
@@ -228,11 +228,11 @@ class _CreateAccountState extends State<CreateAccount> {
                       if (_formkey.currentState!.validate()) {
                         print("sucess");
                         try {
-                          UserCredential userCredential = await FirebaseAuth
-                              .instance
-                              .createUserWithEmailAndPassword(
-                                  email: emailController.text,
-                                  password: passwordController.text);
+                          // UserCredential userCredential =
+                          //     await FirebaseAuth.instance
+                          final newUser = await _auth.createUserWithEmailAndPassword(
+                              email: emailController.text,
+                              password: passwordController.text);
                           usernameController.clear();
                           emailController.clear();
                           passwordController.clear();
@@ -241,19 +241,20 @@ class _CreateAccountState extends State<CreateAccount> {
                         } on FirebaseAuthException catch (e) {
                           String errorMessage = 'An error occurred';
                           if (e.code == 'weak-password') {
-                          //  print("The password provided is too weak.")  ;
-                          errorMessage = 'The password provided is too weak.';
-                            
+                            //  print("The password provided is too weak.")  ;
+                            errorMessage = 'The password provided is too weak.';
                           } else if (e.code == 'email-already-in-use') {
                             // print('The account already exists for that email.');
-                            errorMessage = 'The account already exists for that email.';
+                            errorMessage =
+                                'The account already exists for that email.';
                           }
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(errorMessage)),
-                            );                          
-                        } catch (e) {
-                          print(e);
-                        }
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(errorMessage)),
+                          );
+                        } 
+                        // catch (e) {
+                        //   print(e);
+                        // }
 
                         // }
                       }
